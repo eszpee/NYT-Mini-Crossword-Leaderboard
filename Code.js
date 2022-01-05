@@ -40,7 +40,6 @@ function getLatestStandings() {
   if (matchDate.test(page)) {
     const words = page.match(matchDate)[1].split(', ');
     const date = words[1]+', '+words[2];
-    //Logger.log(date);
     results['_date'] = date;
   }
   
@@ -48,11 +47,9 @@ function getLatestStandings() {
   const matchRows = new RegExp('<div class="lbd-score">(.*?)<\\/div>','gi');
   if (matchRows.test(page)) {
     page.match(matchRows).forEach(function(row) {
-      //Logger.log(row);
       const mRow = new RegExp('<p class="lbd-score__name">(.*?) <\\/p><p class="lbd-score__time">(.*?)<\\/p>','i')
       if(mRow.test(row)) {
         const items = row.match(mRow);
-        //Logger.log(items[1]+items[2]);
         results[items[1]] = timeToSec(items[2]);
       }
     });
